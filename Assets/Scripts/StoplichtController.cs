@@ -7,6 +7,7 @@ public class StoplichtController : MonoBehaviour
 
     
     public GameObject[] Lichten;
+    public int timetoskip;
     public bool wait;
     private int index = 0;
     private int max;
@@ -19,6 +20,7 @@ public class StoplichtController : MonoBehaviour
         max = Lichten.Length;
         Lichten[0].SetActive(true);
         wait = true;
+        timetoskip = 5;
         
     }
 
@@ -28,16 +30,23 @@ public class StoplichtController : MonoBehaviour
             
            if(wait == true)
             {
-                 StartCoroutine(waiter());
+                if(index == 1)
+                {
+                    StartCoroutine(waiter(2));
+                }
+                else
+                {
+                    StartCoroutine(waiter(5));
+                }
             }
             
     }
 
-   private IEnumerator waiter()
+   private IEnumerator waiter(int Time)
     {
-        //Wait for 4 seconds
+        //Wait for 5 seconds
         wait = false;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(Time);
 
                 index++;
                 index = index % max;
@@ -45,13 +54,13 @@ public class StoplichtController : MonoBehaviour
                 if(index == 0)
                 {
                     Lichten[2].SetActive(false);
-                    print(index + "in de if");
                 }
                 else
                 {
                     Lichten[(index - 1) % max].SetActive(false);
-                    print(index + "in de else");
                 }
         wait = true;
-    }       
+    }      
+     
+
 }

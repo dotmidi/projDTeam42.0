@@ -36,8 +36,10 @@ public class TimerScript : MonoBehaviour
             isTriggered = false;
             IEnumerator wait(){
                 yield return new WaitForSeconds(5);
-                timerText.text = "";}
+                timerText.text = "";
+                laptime = 0;}
             StartCoroutine(wait());
+
         }
     }
 }

@@ -36,7 +36,7 @@ public class StoplichtController : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(waiter(5));
+                    StartCoroutine(waiter(10));
                 }
             }
             

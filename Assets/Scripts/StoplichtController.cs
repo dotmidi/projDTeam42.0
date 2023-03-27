@@ -7,9 +7,8 @@ public class StoplichtController : MonoBehaviour
 
     
     public GameObject[] Lichten;
-    public int timetoskip;
-    public bool wait;
-    private int index = 0;
+    private bool wait;
+    [HideInInspector]static public int index = 0;
     private int max;
 
     
@@ -20,7 +19,7 @@ public class StoplichtController : MonoBehaviour
         max = Lichten.Length;
         Lichten[0].SetActive(true);
         wait = true;
-        timetoskip = 5;
+        
         
     }
 
@@ -36,7 +35,7 @@ public class StoplichtController : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(waiter(10));
+                    StartCoroutine(waiter(5));
                 }
             }
             

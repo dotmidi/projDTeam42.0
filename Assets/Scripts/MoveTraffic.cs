@@ -19,20 +19,7 @@ public class MoveTraffic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if(this.transform.position != Points[index].position)
-        {
-            agent.SetDestination(Points[index].position);
-        }
-        else
-        {
 
-            index++;
-            index %= maxSize;    
-            agent.velocity = Vector3.zero;
-            agent.nextPosition = transform.position;       
-           
-        }
-        agent.updatePosition = true;*/
         if(agent.remainingDistance > 1.5)
         {
             agent.SetDestination(Points[index].position);
@@ -46,9 +33,34 @@ public class MoveTraffic : MonoBehaviour
             agent.SetDestination(Points[index].position);
            
         }
+
+
+    
      
             
 
    
     }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("box"))
+        {
+            agent.speed = 0;
+        }
+
+    }
+    private void OnTriggerExit(Collider other) {
+        if (other.gameObject.CompareTag("box"))
+        {
+            agent.speed = 3.5f;
+        }
+    }
+
+
+
+
+
+
+ 
+
 }

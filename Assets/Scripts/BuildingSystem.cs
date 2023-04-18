@@ -72,6 +72,16 @@ public class BuildingSystem : MonoBehaviour
             {
                 RotateBlock();
             }
+            if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
+                IncreaseSize();
+            }
+             if(Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                DecreaseSize();
+            }
+
+           
             if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer) && !Rotate)
             {
                 Vector3 point = buildPosHit.point;
@@ -84,6 +94,7 @@ public class BuildingSystem : MonoBehaviour
                 buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y / 4) + (blockPrefab[blockSelectCounter].transform.lossyScale.y / 2), Mathf.Round(point.z));
                 canBuild = true;
             }
+
             
             else
             {
@@ -104,12 +115,7 @@ public class BuildingSystem : MonoBehaviour
             currentTemplateBlock = Instantiate(blockTemplatePrefab[blockSelectCounter], buildPos, Quaternion.identity);
             currentTemplateBlock.GetComponent<MeshRenderer>().material = templateMaterial;
 
-            ChilderColor  = GetComponentsInChildren<HingeJoint>();
-
-             foreach (var i in ChilderColor)
-             {
-                i.GetComponent<MeshRenderer>().material = templateMaterial;
-             }
+    
                         
         }
 
@@ -126,8 +132,8 @@ public class BuildingSystem : MonoBehaviour
 
     private void PlaceBlock()
     {
-        GameObject newBlock = Instantiate(blockPrefab[blockSelectCounter], buildPos,currentTemplateBlock.transform.rotation );
-        
+        GameObject newBlock = Instantiate(blockPrefab[blockSelectCounter], buildPos,currentTemplateBlock.transform.rotation);
+        newBlock.transform.localScale = currentTemplateBlock.transform.localScale;
 
         Block tempBlock = bSys.allBlocks[blockSelectCounter];
         newBlock.name = tempBlock.blockName + "-Block";
@@ -136,6 +142,18 @@ public class BuildingSystem : MonoBehaviour
     private void RotateBlock()
     {
         currentTemplateBlock.transform.Rotate(0, 90, 0);
+    }
+
+    private void IncreaseSize()
+    {
+        currentTemplateBlock.transform.localScale += new Vector3(0.05f, 0.05f, 0.01f);
+        
+    }
+
+     private void DecreaseSize()
+    {
+        currentTemplateBlock.transform.localScale += new Vector3(-0.05f, -0.05f, 0.01f);
+        
     }
 
    

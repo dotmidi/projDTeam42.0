@@ -15,10 +15,8 @@ public class BuildSystem : MonoBehaviour {
     {
         for (int i = 0; i < allBlockTypes.Length; i++)
         {
-            BlockType newBlockType = allBlockTypes[i];
-            Block newBlock = new Block(i, newBlockType.blockName, newBlockType.blockMat);
+            Block newBlock = new Block(i, "Prefab");
             allBlocks[i] = newBlock;
-            Debug.Log("Block added to dictionary " + allBlocks[i].blockName);
         }
     }
 
@@ -30,11 +28,10 @@ public class Block
     public string blockName;
     public Material blockMaterial;
 
-    public Block (int id, string name, Material mat) 
+    public Block (int id, string name) 
     {
         blockID = id;
         blockName = name;
-        blockMaterial = mat;
     }
 }
 
@@ -42,5 +39,4 @@ public class Block
 public struct BlockType
 {
     public string blockName;
-    public Material blockMat;
 }

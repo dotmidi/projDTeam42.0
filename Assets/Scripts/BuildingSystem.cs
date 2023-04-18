@@ -21,9 +21,9 @@ public class BuildingSystem : MonoBehaviour
     private GameObject currentTemplateBlock;
 
     [SerializeField]
-    private GameObject blockTemplatePrefab;
+    private GameObject[] blockTemplatePrefab;
     [SerializeField]
-    private GameObject blockPrefab;
+    private GameObject[] blockPrefab;
 
     [SerializeField]
     private Material templateMaterial;
@@ -49,12 +49,16 @@ public class BuildingSystem : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
             }
+            
         }
 
-        if (Input.GetKeyDown("r"))
+        if (Input.GetKeyDown("t"))
         {
             blockSelectCounter++;
+            print(blockSelectCounter);
             if (blockSelectCounter >= bSys.allBlocks.Count) blockSelectCounter = 0;
+            Destroy(currentTemplateBlock.gameObject);
+
         }
 
         if (buildModeOn)
@@ -64,7 +68,7 @@ public class BuildingSystem : MonoBehaviour
             if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer))
             {
                 Vector3 point = buildPosHit.point;
-                buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y), Mathf.Round(point.z));
+                buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y) + (blockPrefab[blockSelectCounter].transform.lossyScale.y / 2), Mathf.Round(point.z));
                 canBuild = true;
             }
             else
@@ -82,7 +86,8 @@ public class BuildingSystem : MonoBehaviour
 
         if (canBuild && currentTemplateBlock == null)
         {
-            currentTemplateBlock = Instantiate(blockTemplatePrefab, buildPos, Quaternion.identity);
+            currentTemplateBlock = Instantiate(blockTemplatePrefab[blockSelectCounter], buildPos, Quaternion.identity);
+            print(blockTemplatePrefab[blockSelectCounter].name);
             currentTemplateBlock.GetComponent<MeshRenderer>().material = templateMaterial;
         }
 
@@ -99,9 +104,8 @@ public class BuildingSystem : MonoBehaviour
 
     private void PlaceBlock()
     {
-        GameObject newBlock = Instantiate(blockPrefab, buildPos, Quaternion.identity);
+        GameObject newBlock = Instantiate(blockPrefab[blockSelectCounter], buildPos, Quaternion.identity);
         Block tempBlock = bSys.allBlocks[blockSelectCounter];
         newBlock.name = tempBlock.blockName + "-Block";
-        newBlock.GetComponent<MeshRenderer>().material = tempBlock.blockMaterial;
     }
 }

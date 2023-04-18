@@ -11,7 +11,10 @@ public class BuildingSystem : MonoBehaviour
     private bool buildModeOn = false;
     private bool canBuild = false;
 
+    public Component[] ChilderColor;
     private BuildSystem bSys;
+
+    private bool Rotate;
 
     [SerializeField]
     private LayerMask buildableSurfacesLayer;
@@ -60,23 +63,35 @@ public class BuildingSystem : MonoBehaviour
             Destroy(currentTemplateBlock.gameObject);
 
         }
+       
 
         if (buildModeOn)
         {
             RaycastHit buildPosHit;
-
-            if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer))
+            if(Input.GetKeyDown("y"))
+            {
+                RotateBlock();
+            }
+            if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer) && !Rotate)
             {
                 Vector3 point = buildPosHit.point;
                 buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y) + (blockPrefab[blockSelectCounter].transform.lossyScale.y / 2), Mathf.Round(point.z));
                 canBuild = true;
             }
+            else if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer) && Rotate)
+            {
+                Vector3 point = buildPosHit.point;
+                buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y / 4) + (blockPrefab[blockSelectCounter].transform.lossyScale.y / 2), Mathf.Round(point.z));
+                canBuild = true;
+            }
+            
             else
             {
                 Destroy(currentTemplateBlock.gameObject);
                 canBuild = false;
             }
         }
+        
 
         if (!buildModeOn && currentTemplateBlock != null)
         {
@@ -87,8 +102,15 @@ public class BuildingSystem : MonoBehaviour
         if (canBuild && currentTemplateBlock == null)
         {
             currentTemplateBlock = Instantiate(blockTemplatePrefab[blockSelectCounter], buildPos, Quaternion.identity);
-            print(blockTemplatePrefab[blockSelectCounter].name);
             currentTemplateBlock.GetComponent<MeshRenderer>().material = templateMaterial;
+
+            ChilderColor  = GetComponentsInChildren<HingeJoint>();
+
+             foreach (var i in ChilderColor)
+             {
+                i.GetComponent<MeshRenderer>().material = templateMaterial;
+             }
+                        
         }
 
         if (canBuild && currentTemplateBlock != null)
@@ -104,8 +126,17 @@ public class BuildingSystem : MonoBehaviour
 
     private void PlaceBlock()
     {
-        GameObject newBlock = Instantiate(blockPrefab[blockSelectCounter], buildPos, Quaternion.identity);
+        GameObject newBlock = Instantiate(blockPrefab[blockSelectCounter], buildPos,currentTemplateBlock.transform.rotation );
+        
+
         Block tempBlock = bSys.allBlocks[blockSelectCounter];
         newBlock.name = tempBlock.blockName + "-Block";
     }
+
+    private void RotateBlock()
+    {
+        currentTemplateBlock.transform.Rotate(0, 90, 0);
+    }
+
+   
 }

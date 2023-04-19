@@ -9,6 +9,8 @@ public class MoveTraffic : MonoBehaviour
     public Transform[] Points;     
     [SerializeField]private int index = 0;
     [SerializeField]private int maxSize;
+    public bool canbedelete = false;//only for testing
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +21,18 @@ public class MoveTraffic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(canbedelete && index == maxSize - 1 && agent.remainingDistance <= 1.5)
+        {
+            print("stop");
+            Destroy(gameObject);
+            return;
+        }
+
 
         if(agent.remainingDistance > 1.5)
         {
             agent.SetDestination(Points[index].position);
+            
 
         }
         else
@@ -33,6 +43,8 @@ public class MoveTraffic : MonoBehaviour
             agent.SetDestination(Points[index].position);
            
         }
+
+
 
 
     

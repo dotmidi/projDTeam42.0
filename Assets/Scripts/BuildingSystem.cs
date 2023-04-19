@@ -11,6 +11,7 @@ public class BuildingSystem : MonoBehaviour
     private bool buildModeOn = false;
     private bool canBuild = false;
 
+    public GameObject KeuzeScherm;
     public Component[] ChilderColor;
     private BuildSystem bSys;
 
@@ -52,23 +53,56 @@ public class BuildingSystem : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
             }
-            
+            if(buildModeOn)
+            {
+                KeuzeScherm.SetActive(true);
+            }
+            else
+            {
+                KeuzeScherm.SetActive(false);
+            }
         }
 
-        if (Input.GetKeyDown("t"))
-        {
-            blockSelectCounter++;
-            print(blockSelectCounter);
-            if (blockSelectCounter >= bSys.allBlocks.Count) blockSelectCounter = 0;
-            Destroy(currentTemplateBlock.gameObject);
-
-        }
+        
        
 
         if (buildModeOn)
         {
+
+            if (Input.GetKeyDown("1"))
+            {
+                blockSelectCounter = 0;
+                print(blockSelectCounter);
+                //if (blockSelectCounter >= bSys.allBlocks.Count) blockSelectCounter = 0;
+                Destroy(currentTemplateBlock.gameObject);
+            }
+            else if(Input.GetKeyDown("2"))
+            {
+                blockSelectCounter = 1;
+                print(blockSelectCounter);
+               // if (blockSelectCounter <= bSys.allBlocks.Count) blockSelectCounter = 0;
+                Destroy(currentTemplateBlock.gameObject);
+            }
+
+            else if(Input.GetKeyDown("3"))
+            {
+                blockSelectCounter = 2;
+                print(blockSelectCounter);
+                //if (blockSelectCounter <= bSys.allBlocks.Count) blockSelectCounter = 0;
+                Destroy(currentTemplateBlock.gameObject);
+            }
+
+            else if(Input.GetKeyDown("4"))
+            {
+                blockSelectCounter = 3;
+                print(blockSelectCounter);
+                //if (blockSelectCounter <= bSys.allBlocks.Count) blockSelectCounter = 0;
+                Destroy(currentTemplateBlock.gameObject);
+            }
+
+
             RaycastHit buildPosHit;
-            if(Input.GetKeyDown("y"))
+            if(Input.GetKeyDown(KeyCode.Mouse1))
             {
                 RotateBlock();
             }
@@ -146,13 +180,18 @@ public class BuildingSystem : MonoBehaviour
 
     private void IncreaseSize()
     {
-        currentTemplateBlock.transform.localScale += new Vector3(0.05f, 0.05f, 0.01f);
+        currentTemplateBlock.transform.localScale += new Vector3(0.05f, 0.05f,0.05f);
         
     }
 
      private void DecreaseSize()
     {
-        currentTemplateBlock.transform.localScale += new Vector3(-0.05f, -0.05f, 0.01f);
+        currentTemplateBlock.transform.localScale += new Vector3(-0.05f, -0.05f,-0.05f);
+        
+    }
+
+    private void ChangeObject()
+    {
         
     }
 

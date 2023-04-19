@@ -9,16 +9,20 @@ public class ArrowLookAt : MonoBehaviour
     private bool isTriggered = false;
 
     // Start is called before the first frame update
-    void Start() { 
-        //arrow.GetComponent<Renderer>().enabled = false;
+    void Start() {
+        arrow.GetComponent<Renderer>().enabled = false;
     }
 
     // Update is called once per frame
     void Update() { 
-        if (isTriggered == false)
+        if (isTriggered == true)
         {
-            arrow.transform.LookAt(new Vector3(target.position.x, arrow.position.y, target.position.z));
+            arrow.GetComponent<Renderer>().enabled = true;
             //arrow.LookAt(target);
+        } else
+        {
+            //arrow.transform.LookAt(new Vector3(target.position.x, arrow.position.y, target.position.z));
+            //arrow.GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -27,9 +31,9 @@ public class ArrowLookAt : MonoBehaviour
         if (other.gameObject.name == "Start")
         {
             // show the arrow renderer
-            isTriggered = true;
+            Debug.Log("Start");
             arrow.GetComponent<Renderer>().enabled = true;
-            arrow.LookAt(new Vector3(target.position.x, arrow.position.y, target.position.z));
+            isTriggered = true;
         }
 
         if (other.gameObject.name == "Finish")

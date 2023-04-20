@@ -8,9 +8,12 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField]
     private Camera playerCamera;
 
-    private bool buildModeOn = false;
+
+    private GameObject[] AllPlaced;
+    public static bool buildModeOn = false;
     private bool canBuild = false;
 
+    [SerializeField]
     public GameObject KeuzeScherm;
     public Component[] ChilderColor;
     private BuildSystem bSys;
@@ -44,7 +47,8 @@ public class BuildingSystem : MonoBehaviour
         if (Input.GetKeyDown("e"))
         {
             buildModeOn = !buildModeOn;
-
+            DeleteObject.DestroyMode = !buildModeOn;
+            
             if (buildModeOn)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -190,10 +194,6 @@ public class BuildingSystem : MonoBehaviour
         
     }
 
-    private void ChangeObject()
-    {
-        
-    }
-
+    
    
 }

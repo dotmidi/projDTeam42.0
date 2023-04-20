@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allBlockTypes:
-  - blockName: Grey
-    blockMat: {fileID: 2100000, guid: 177d38fcae2a43b4187fb6adb6e3129e, type: 2}
-  - blockName: Green
-    blockMat: {fileID: 2100000, guid: 9dbbe892973c5eb47a40a31340e6931e, type: 2}
+  - blockName: Prefab1
+  - blockName: Prefab 2
+  - blockName: prefab 3
+  - blockName: prefab 4
 --- !u!114 &5738415435497157256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,9 +63,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
+  KeuzeScherm: {fileID: 0}
+  ChilderColor: []
   buildableSurfacesLayer:
     serializedVersion: 2
     m_Bits: 384
-  blockTemplatePrefab: {fileID: 956968156587612453, guid: 73b0fe766f9a00f47bd457f8fbb9c1cd, type: 3}
-  blockPrefab: {fileID: 4107665968877853507, guid: b6ca7c643b2a1804dbb8f64a3cfc4f54, type: 3}
+  blockTemplatePrefab:
+  - {fileID: 716706153866520240, guid: 213ef7bb60081f44b920b4032506a6e7, type: 3}
+  - {fileID: 2870330542409281057, guid: 99ea5c30074df6049a24cf3e32d67aab, type: 3}
+  - {fileID: 1555167008918728, guid: f86e73b6642ff254cac331ce6e5bfb89, type: 3}
+  - {fileID: 1883264383020306885, guid: e266d6ed9b3709f41b0949f2a74df43d, type: 3}
+  blockPrefab:
+  - {fileID: 716706153866520240, guid: 213ef7bb60081f44b920b4032506a6e7, type: 3}
+  - {fileID: 2870330542409281057, guid: 99ea5c30074df6049a24cf3e32d67aab, type: 3}
+  - {fileID: 1555167008918728, guid: f86e73b6642ff254cac331ce6e5bfb89, type: 3}
+  - {fileID: 1883264383020306885, guid: e266d6ed9b3709f41b0949f2a74df43d, type: 3}
   templateMaterial: {fileID: 2100000, guid: 112a3b43fa29f4d45ab3daf29a2bda4b, type: 2}

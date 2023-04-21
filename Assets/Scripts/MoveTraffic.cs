@@ -23,7 +23,7 @@ public class MoveTraffic : MonoBehaviour
     {
         if(canbedelete && index == maxSize - 1 && agent.remainingDistance <= 1.5)
         {
-            print("stop");
+            
             Destroy(gameObject);
             return;
         }

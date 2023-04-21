@@ -6,6 +6,7 @@ TagManager:
   tags:
   - wall
   - box
+  - Spawner
   layers:
   - Default
   - TransparentFX

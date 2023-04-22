@@ -106,9 +106,17 @@ public class BuildingSystem : MonoBehaviour
 
 
             RaycastHit buildPosHit;
-            if(Input.GetKeyDown(KeyCode.Mouse1))
+            if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow))
             {
-                RotateBlock();
+                if(Input.GetKey(KeyCode.RightArrow))
+                {
+                    RotateBlock(0.1f);
+                }
+                else if(Input.GetKey(KeyCode.LeftArrow))
+                {
+                    RotateBlock(-0.1f);
+                }
+                
             }
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
@@ -177,9 +185,11 @@ public class BuildingSystem : MonoBehaviour
         newBlock.name = tempBlock.blockName + "-Block";
     }
 
-    private void RotateBlock()
+    private void RotateBlock(float rotateAmount)
     {
-        currentTemplateBlock.transform.Rotate(0, 90, 0);
+        
+        currentTemplateBlock.transform.Rotate(0, rotateAmount, 0);
+        
     }
 
     private void IncreaseSize()

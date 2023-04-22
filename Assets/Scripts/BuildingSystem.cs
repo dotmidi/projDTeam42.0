@@ -110,11 +110,11 @@ public class BuildingSystem : MonoBehaviour
             {
                 if(Input.GetKey(KeyCode.RightArrow))
                 {
-                    RotateBlock(0.1f);
+                    RotateBlock(100f);
                 }
                 else if(Input.GetKey(KeyCode.LeftArrow))
                 {
-                    RotateBlock(-0.1f);
+                    RotateBlock(-100f);
                 }
                 
             }
@@ -188,7 +188,7 @@ public class BuildingSystem : MonoBehaviour
     private void RotateBlock(float rotateAmount)
     {
         
-        currentTemplateBlock.transform.Rotate(0, rotateAmount, 0);
+        currentTemplateBlock.transform.Rotate(0, rotateAmount * Time.deltaTime, 0);
         
     }
 

@@ -1,8 +1,3 @@
-﻿//===========================================================================//
-//                       FreeFlyCamera (Version 1.2)                         //
-//                        (c) 2019 Sergey Stafeyev                           //
-//===========================================================================//
-
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -144,6 +139,10 @@ public class FreeFlyCamera : MonoBehaviour
 
     private void Update()
     {
+        if (carCamSwitch.carCam == true) {
+            return;
+        }
+
         if (!_active)
             return;
 

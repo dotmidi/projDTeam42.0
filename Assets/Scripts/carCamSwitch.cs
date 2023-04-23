@@ -8,6 +8,7 @@ public class carCamSwitch : MonoBehaviour
     public Camera ThirdPerson;
     public Camera FreeCam;
     public static bool freeFlyCam;
+    public static bool carCam = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,7 @@ public class carCamSwitch : MonoBehaviour
             FirstPerson.enabled = false;
             FreeCam.enabled = !FreeCam.enabled;
             freeFlyCam = !freeFlyCam;
+            carCam = !carCam;
             if(FreeCam.enabled == false) 
             {
                 ThirdPerson.enabled = true;

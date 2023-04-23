@@ -110,14 +110,20 @@ public class BuildingSystem : MonoBehaviour
             {
                 if(Input.GetKey(KeyCode.RightArrow))
                 {
-                    RotateBlock(100f);
+                    RotateBlock360(100f);
                 }
                 else if(Input.GetKey(KeyCode.LeftArrow))
                 {
-                    RotateBlock(-100f);
+                    RotateBlock360(-100f);
                 }
                 
             }
+
+            if(Input.GetMouseButtonDown(1))
+            {
+                RotateBlock();
+            }
+
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 IncreaseSize();
@@ -185,7 +191,7 @@ public class BuildingSystem : MonoBehaviour
         newBlock.name = tempBlock.blockName + "-Block";
     }
 
-    private void RotateBlock(float rotateAmount)
+    private void RotateBlock360(float rotateAmount)
     {
         
         currentTemplateBlock.transform.Rotate(0, rotateAmount * Time.deltaTime, 0);
@@ -204,6 +210,11 @@ public class BuildingSystem : MonoBehaviour
         
     }
 
-    
+     private void RotateBlock()
+    {
+        
+        currentTemplateBlock.transform.Rotate(0, 90, 0);
+        
+    }
    
 }

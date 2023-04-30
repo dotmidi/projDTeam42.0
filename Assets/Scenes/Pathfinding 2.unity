@@ -3179,7 +3179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawners: []
-  timeBetween: 1.5
+  timeBetween: 3
   time: 0
 --- !u!114 &5326365284837010463
 MonoBehaviour:

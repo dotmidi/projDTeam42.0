@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class SpawnCar : MonoBehaviour
 {
     public GameObject car; 
+    public float timeBetween = 1.5f;
+    public float time;
   
    
     // Start is called before the first frame update
@@ -18,7 +20,7 @@ public class SpawnCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(time <= 0)
         {
             float x = Random.Range( this.transform.position.x - 10, this.transform.position.x + 10) + 5;
             float z = Random.Range( this.transform.position.z - 10, this.transform.position.z + 10) + 5;
@@ -30,12 +32,12 @@ public class SpawnCar : MonoBehaviour
             float zpoint = Random.Range(car.transform.position.z - 10, car.transform.position.z + 10) + 10;
             point.transform.position = new Vector3(xpoint,car.transform.position.y,zpoint);
 
-
-
+             time = timeBetween;
             
-
-
-            
+        }
+        else
+        {
+            time -= Time.deltaTime ;
         }
         
 

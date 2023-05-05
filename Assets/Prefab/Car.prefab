@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6895900615339739637}
-  - component: {fileID: 8009233757272906694}
   m_Layer: 0
   m_Name: point
   m_TagString: Untagged
@@ -25,26 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353368739336434585}
   m_LocalRotation: {x: -0, y: 0.7384056, z: -0, w: 0.6743569}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.03753662, y: 0, z: 14.4871}
   m_LocalScale: {x: 1.0033131, y: 1, z: 1.6666884}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5326365286316852957}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8009233757272906694
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1353368739336434585}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.01, z: 0.01}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5287002349015515365
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +162,9 @@ MonoBehaviour:
   agent: {fileID: 1337767234427737553}
   Points:
   - {fileID: 6895900615339739637}
+  index: 0
+  maxSize: 0
+  canbedelete: 1
 --- !u!195 &1337767234427737553
 NavMeshAgent:
   m_ObjectHideFlags: 0

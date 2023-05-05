@@ -9,6 +9,8 @@ public class MoveTraffic : MonoBehaviour
     public Transform[] Points;     
     [SerializeField]private int index = 0;
     [SerializeField]private int maxSize;
+    public bool canbedelete = false;//only for testing
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,23 +21,18 @@ public class MoveTraffic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if(this.transform.position != Points[index].position)
+        if(canbedelete && index == maxSize - 1 && agent.remainingDistance <= 1.5)
         {
-            agent.SetDestination(Points[index].position);
+            
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
 
-            index++;
-            index %= maxSize;    
-            agent.velocity = Vector3.zero;
-            agent.nextPosition = transform.position;       
-           
-        }
-        agent.updatePosition = true;*/
+
         if(agent.remainingDistance > 1.5)
         {
             agent.SetDestination(Points[index].position);
+            
 
         }
         else
@@ -46,9 +43,36 @@ public class MoveTraffic : MonoBehaviour
             agent.SetDestination(Points[index].position);
            
         }
+
+
+
+
+    
      
             
 
    
     }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("box"))
+        {
+            agent.speed = 0;
+        }
+
+    }
+    private void OnTriggerExit(Collider other) {
+        if (other.gameObject.CompareTag("box"))
+        {
+            agent.speed = 3.5f;
+        }
+    }
+
+
+
+
+
+
+ 
+
 }

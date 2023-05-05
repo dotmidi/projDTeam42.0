@@ -45,7 +45,6 @@ public class PrometeoCarController : MonoBehaviour
                                     // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
                                     // however, you must notice that the higher this value is, the more unstable the car becomes.
                                     // Usually the y value goes from 0 to 1.5.
-
     //WHEELS
 
       //[Header("WHEELS")]
@@ -263,9 +262,14 @@ public class PrometeoCarController : MonoBehaviour
     }
 
     // Update is called once per frame
+    
     void Update()
     {
-
+      if (carCamSwitch.freeFlyCam == true) {
+        carRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        return;
+      }
+      carRigidbody.constraints = RigidbodyConstraints.None;
       //CAR DATA
 
       // We determine the speed of the car.

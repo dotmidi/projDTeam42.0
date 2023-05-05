@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 685108782279340124}
   - component: {fileID: 693679651320231386}
   - component: {fileID: 717217108773164389}
+  - component: {fileID: 99664485466010409}
   m_Layer: 0
   m_Name: Stoplicht
   m_TagString: Untagged
@@ -105,6 +106,20 @@ MonoBehaviour:
   - {fileID: 717217108997011412}
   timetoskip: 0
   wait: 0
+--- !u!64 &99664485466010409
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716706153866520240}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 6813ce4b94f3e8a4bad80acc0ac5845f, type: 3}
 --- !u!1 &717217108997011412
 GameObject:
   m_ObjectHideFlags: 0

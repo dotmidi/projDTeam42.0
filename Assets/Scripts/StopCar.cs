@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StopCar : MonoBehaviour
 {
-    private int index = StoplichtController.index;
+    [SerializeField]private int index = StoplichtController.indexpublic;
     public Collider Box;
 
     
@@ -12,6 +12,7 @@ public class StopCar : MonoBehaviour
     void Start()
     {
         Box.isTrigger = true;
+        index = StoplichtController.indexpublic;
        
 
     }
@@ -19,7 +20,7 @@ public class StopCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int index = StoplichtController.index;
+        int index = StoplichtController.indexpublic;
         if(index == 2)Box.isTrigger = true; 
         else  Box.isTrigger = false;    
 

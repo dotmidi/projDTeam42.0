@@ -8,7 +8,8 @@ public class StoplichtController : MonoBehaviour
     
     public GameObject[] Lichten;
     private bool wait;
-    [HideInInspector]static public int index = 0;
+    [HideInInspector]private  int index = 0;
+    [HideInInspector]static public int indexpublic = 0;
     private int max;
 
     
@@ -26,7 +27,7 @@ public class StoplichtController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-            
+           indexpublic = index;
            if(wait == true)
             {
                 if(index == 1)

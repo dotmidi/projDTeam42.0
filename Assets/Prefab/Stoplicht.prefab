@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 2
   stoplichtController: {fileID: 717217108773164389}
-  Box: {fileID: 889036668}
+  Box: {fileID: 889036669}
 --- !u!64 &99664485466010409
 MeshCollider:
   m_ObjectHideFlags: 0

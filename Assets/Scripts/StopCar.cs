@@ -6,10 +6,8 @@ public class StopCar : MonoBehaviour
 {
 
     public int index;
-
     public StoplichtController stoplichtController;
-
-    public GameObject Box;
+    public Collider Box;
 
     
     // Start is called before the first frame update
@@ -27,8 +25,8 @@ public class StopCar : MonoBehaviour
     void Update()
     {
         index = stoplichtController.indexpublic;
-        if(index == 2)Box.SetActive(true); 
-        else  Box.SetActive(false);    
+        if(index == 2)Box.isTrigger = true; 
+        else  Box.isTrigger = false;    
 
 
     }

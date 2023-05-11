@@ -152,19 +152,24 @@ public class BuildingSystem : MonoBehaviour
             }
 
            
-            if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer) && !Rotate)
-            {
-                Vector3 point = buildPosHit.point;
-                buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y) + (blockPrefab[blockSelectCounter].transform.lossyScale.y / 2), Mathf.Round(point.z));
-                canBuild = true;
-            }
-            else if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer) && Rotate)
-            {
-                Vector3 point = buildPosHit.point;
-                buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y / 4) + (blockPrefab[blockSelectCounter].transform.lossyScale.y / 2), Mathf.Round(point.z));
-                canBuild = true;
-            }
+        if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer))
+{
+    Vector3 point = buildPosHit.point;
+    float groundHeight = point.y;
 
+    // Use a second raycast to determine the distance between the ground and the center of the object
+    RaycastHit centerHit;
+    if (Physics.Raycast(new Vector3(point.x, point.y + blockPrefab[blockSelectCounter].transform.lossyScale.y / 2, point.z), Vector3.down, out centerHit, 1.0f, buildableSurfacesLayer))
+    {
+        float objectHeight = blockPrefab[blockSelectCounter].transform.lossyScale.y;
+        float thickness = centerHit.distance - objectHeight / 2;
+        groundHeight -= thickness;
+    }
+
+    buildPos = new Vector3(Mathf.Round(point.x), groundHeight, Mathf.Round(point.z));
+    canBuild = true;
+}
+   
             
             else
             {

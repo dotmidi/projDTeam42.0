@@ -44,11 +44,14 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update()
     {
+        
         if (Input.GetKeyDown("e"))
         {
-            buildModeOn = !buildModeOn;
-            DeleteObject.DestroyMode = !buildModeOn;
-            
+            if(carCamSwitch.freeFlyCam)
+            {
+                buildModeOn = !buildModeOn;
+                DeleteObject.DestroyMode = !buildModeOn;
+            }
             if (buildModeOn)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -60,6 +63,7 @@ public class BuildingSystem : MonoBehaviour
             if(buildModeOn)
             {
                 KeuzeScherm.SetActive(true);
+                print("test12345");
             }
             else
             {

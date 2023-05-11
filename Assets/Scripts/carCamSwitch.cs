@@ -29,6 +29,12 @@ public class carCamSwitch : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.F))
         {
+            if(Input.GetKeyDown(KeyCode.F) && freeFlyCam)
+            {
+                print("test");
+                BuildingSystem.buildModeOn = false;
+                DeleteObject.DestroyMode = false;
+            }   
             ThirdPerson.enabled = false;
             FirstPerson.enabled = false;
             FreeCam.enabled = !FreeCam.enabled;
@@ -38,7 +44,10 @@ public class carCamSwitch : MonoBehaviour
             {
                 ThirdPerson.enabled = true;
             }
+           
         }
+
+        
         
     }
 }

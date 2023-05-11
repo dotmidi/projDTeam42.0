@@ -21,18 +21,25 @@ public class DeleteObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("x"))
+        if(carCamSwitch.freeFlyCam)
         {
-            DestroyMode = !DestroyMode;
-            BuildingSystem.buildModeOn = !DestroyMode;
-            if(DestroyMode)
+            if(Input.GetKeyDown("x"))
             {
-                Crosshair.SetActive(true);
+                DestroyMode = !DestroyMode;
+                BuildingSystem.buildModeOn = !DestroyMode;
+                if(DestroyMode)
+                {
+                    Crosshair.SetActive(true);
+                }
+                else
+                {
+                    Crosshair.SetActive(false);
+                }
             }
-            else
-            {
-                Crosshair.SetActive(false);
-            }
+        }
+        if(!carCamSwitch.freeFlyCam)
+        {
+            Crosshair.SetActive(false);
         }
 
         if(DestroyMode && Input.GetMouseButtonDown(0))

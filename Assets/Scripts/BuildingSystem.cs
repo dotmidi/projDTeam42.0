@@ -45,6 +45,7 @@ public class BuildingSystem : MonoBehaviour
     private void Update()
     {
         
+        
         if (Input.GetKeyDown("e"))
         {
             if(carCamSwitch.freeFlyCam)
@@ -63,7 +64,7 @@ public class BuildingSystem : MonoBehaviour
             if(buildModeOn)
             {
                 KeuzeScherm.SetActive(true);
-                print("test12345");
+              
             }
             else
             {
@@ -126,6 +127,19 @@ public class BuildingSystem : MonoBehaviour
             if(Input.GetMouseButtonDown(1))
             {
                 RotateBlock();
+            }
+             if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+            {
+                print("test");
+                if(Input.GetKey(KeyCode.DownArrow))
+                {
+                    MoveBlockUpDown(10f);
+                }
+                else if(Input.GetKey(KeyCode.UpArrow))
+                {
+                    MoveBlockUpDown(10f);
+                }
+                
             }
 
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
@@ -201,6 +215,12 @@ public class BuildingSystem : MonoBehaviour
         currentTemplateBlock.transform.Rotate(0, rotateAmount * Time.deltaTime, 0);
         
     }
+
+    private void MoveBlockUpDown(float moveAmount)
+    {
+        currentTemplateBlock.transform.localPosition += new Vector3(0, 1000f, 0);
+    }
+
 
     private void IncreaseSize()
     {

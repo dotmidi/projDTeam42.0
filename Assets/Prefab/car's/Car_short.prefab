@@ -220,3 +220,5 @@ MonoBehaviour:
   index: 0
   maxSize: 0
   canbedelete: 0
+  stop: 0
+  redLight: 0

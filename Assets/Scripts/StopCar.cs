@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class StopCar : MonoBehaviour
 {
-    [SerializeField]private int index = StoplichtController.indexpublic;
-    public Collider Box;
+
+    public int index;
+
+    public StoplichtController stoplichtController;
+
+    public GameObject Box;
 
     
     // Start is called before the first frame update
     void Start()
     {
-        Box.isTrigger = true;
-        index = StoplichtController.indexpublic;
+        //Box.isTrigger = true;
+        //index = StoplichtController.indexpublic;
+        index = stoplichtController.indexpublic;
+
        
 
     }
@@ -20,9 +26,9 @@ public class StopCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int index = StoplichtController.indexpublic;
-        if(index == 2)Box.isTrigger = true; 
-        else  Box.isTrigger = false;    
+        index = stoplichtController.indexpublic;
+        if(index == 2)Box.SetActive(true); 
+        else  Box.SetActive(false);    
 
 
     }

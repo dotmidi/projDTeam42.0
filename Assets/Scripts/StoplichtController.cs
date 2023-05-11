@@ -8,8 +8,8 @@ public class StoplichtController : MonoBehaviour
     
     public GameObject[] Lichten;
     private bool wait;
-    [HideInInspector]private  int index = 0;
-    [HideInInspector]static public int indexpublic = 0;
+    [HideInInspector]public int index = 0;
+    public int indexpublic = 0;
     private int max;
 
     

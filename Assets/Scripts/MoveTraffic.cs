@@ -59,6 +59,7 @@ public class MoveTraffic : MonoBehaviour
         {
             agent.speed = 0;
         }
+        print(agent.speed);
 
     }
     private void OnTriggerExit(Collider other) {

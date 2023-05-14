@@ -46,7 +46,7 @@ public class BuildingSystem : MonoBehaviour
     {
         
         
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("g"))
         {
             if(carCamSwitch.freeFlyCam)
             {
@@ -146,7 +146,7 @@ public class BuildingSystem : MonoBehaviour
             {
                 IncreaseSize();
             }
-             if(Input.GetAxis("Mouse ScrollWheel") < 0f)
+             if(Input.GetAxis("Mouse ScrollWheel") < 0f )
             {
                 DecreaseSize();
             }

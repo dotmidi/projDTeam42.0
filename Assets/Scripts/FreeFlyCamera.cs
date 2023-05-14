@@ -94,6 +94,7 @@ public class FreeFlyCamera : MonoBehaviour
 
     private void Start()
     {
+        transform.position = new Vector3(4.19f, 7f, -13.06f);
         _initPosition = transform.position;
         _initRotation = transform.eulerAngles;
     }
@@ -152,10 +153,10 @@ public class FreeFlyCamera : MonoBehaviour
             return;
 
         // Translation
-        if (_enableTranslation)
-        {
-            transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * Time.deltaTime * _translationSpeed);
-        }
+        // if (_enableTranslation)
+        // {
+        //     transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * Time.deltaTime * _translationSpeed);
+        // }
 
         // Movement
         if (_enableMovement)

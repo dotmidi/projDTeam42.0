@@ -26,10 +26,11 @@ public class DeleteObject : MonoBehaviour
             if(Input.GetKeyDown("x"))
             {
                 DestroyMode = !DestroyMode;
-                BuildingSystem.buildModeOn = !DestroyMode;
+                
                 if(DestroyMode)
                 {
                     Crosshair.SetActive(true);
+                    BuildingSystem.buildModeOn = false;
                 }
                 else
                 {

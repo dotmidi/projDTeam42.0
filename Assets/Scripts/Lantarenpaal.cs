@@ -14,6 +14,8 @@ public class Lantarenpaal : MonoBehaviour
 
     private GameObject spotlight;
 
+    public GameObject Lantarenpalen;
+
     [SerializeField]
     private GameObject Sun;
 
@@ -40,13 +42,37 @@ public class Lantarenpaal : MonoBehaviour
             }
             if(isNight)
             {
-                pointlight.SetActive(true);
-                spotlight.SetActive(true);
+                foreach(Transform child in Lantarenpalen.transform)
+                        {
+                            foreach(Transform child2 in child)
+                            {
+                                if(child2.gameObject.name == "Point Light")
+                                {
+                                    child2.gameObject.SetActive(true);
+                                }
+                                if(child2.gameObject.name == "Spot Light")
+                                {
+                                    child2.gameObject.SetActive(true);
+                                }
+                            }
+                        }
             }
             else
             {
-                pointlight.SetActive(false);
-                spotlight.SetActive(false);
+                foreach(Transform child in Lantarenpalen.transform)
+                        {
+                            foreach(Transform child2 in child)
+                            {
+                                if(child2.gameObject.name == "Point Light")
+                                {
+                                    child2.gameObject.SetActive(false);
+                                }
+                                if(child2.gameObject.name == "Spot Light")
+                                {
+                                    child2.gameObject.SetActive(false);
+                                }
+                            }
+                        }
             }
         }
 }

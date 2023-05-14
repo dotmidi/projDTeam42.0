@@ -44,11 +44,15 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update()
     {
+        
+        
         if (Input.GetKeyDown("e"))
         {
-            buildModeOn = !buildModeOn;
-            DeleteObject.DestroyMode = !buildModeOn;
-            
+            if(carCamSwitch.freeFlyCam)
+            {
+                buildModeOn = !buildModeOn;
+                DeleteObject.DestroyMode = !buildModeOn;
+            }
             if (buildModeOn)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -60,6 +64,7 @@ public class BuildingSystem : MonoBehaviour
             if(buildModeOn)
             {
                 KeuzeScherm.SetActive(true);
+              
             }
             else
             {
@@ -123,6 +128,19 @@ public class BuildingSystem : MonoBehaviour
             {
                 RotateBlock();
             }
+             if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+            {
+                print("test");
+                if(Input.GetKey(KeyCode.DownArrow))
+                {
+                    MoveBlockUpDown(10f);
+                }
+                else if(Input.GetKey(KeyCode.UpArrow))
+                {
+                    MoveBlockUpDown(10f);
+                }
+                
+            }
 
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
@@ -134,19 +152,24 @@ public class BuildingSystem : MonoBehaviour
             }
 
            
-            if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer) && !Rotate)
-            {
-                Vector3 point = buildPosHit.point;
-                buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y) + (blockPrefab[blockSelectCounter].transform.lossyScale.y / 2), Mathf.Round(point.z));
-                canBuild = true;
-            }
-            else if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer) && Rotate)
-            {
-                Vector3 point = buildPosHit.point;
-                buildPos = new Vector3(Mathf.Round(point.x), Mathf.Round(point.y / 4) + (blockPrefab[blockSelectCounter].transform.lossyScale.y / 2), Mathf.Round(point.z));
-                canBuild = true;
-            }
+        if (Physics.Raycast(playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out buildPosHit, 100, buildableSurfacesLayer))
+{
+    Vector3 point = buildPosHit.point;
+    float groundHeight = point.y;
 
+    // Use a second raycast to determine the distance between the ground and the center of the object
+    RaycastHit centerHit;
+    if (Physics.Raycast(new Vector3(point.x, point.y + blockPrefab[blockSelectCounter].transform.lossyScale.y / 2, point.z), Vector3.down, out centerHit, 1.0f, buildableSurfacesLayer))
+    {
+        float objectHeight = blockPrefab[blockSelectCounter].transform.lossyScale.y;
+        float thickness = centerHit.distance - objectHeight / 2;
+        groundHeight -= thickness;
+    }
+
+    buildPos = new Vector3(Mathf.Round(point.x), groundHeight, Mathf.Round(point.z));
+    canBuild = true;
+}
+   
             
             else
             {
@@ -197,6 +220,12 @@ public class BuildingSystem : MonoBehaviour
         currentTemplateBlock.transform.Rotate(0, rotateAmount * Time.deltaTime, 0);
         
     }
+
+    private void MoveBlockUpDown(float moveAmount)
+    {
+        currentTemplateBlock.transform.localPosition += new Vector3(0, 1000f, 0);
+    }
+
 
     private void IncreaseSize()
     {

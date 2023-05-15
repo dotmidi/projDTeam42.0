@@ -6,10 +6,14 @@ using UnityEngine.AI;
 public class MoveTraffic : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public Transform[] Points;     
-    [SerializeField]private int index = 0;
-    [SerializeField]private int maxSize;
-    public bool canbedelete = false;//only for testing
+    public Transform[] Points;
+
+    [SerializeField]
+    private int index = 0;
+
+    [SerializeField]
+    private int maxSize;
+    public bool canbedelete = false; //only for testing
     public bool stop = false;
     public bool redLight = false;
 
@@ -23,15 +27,14 @@ public class MoveTraffic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canbedelete && index == maxSize - 1 && agent.remainingDistance <= 1.5)
+        if (canbedelete && index == maxSize - 1 && agent.remainingDistance <= 1.5)
         {
-            
             Destroy(gameObject);
             return;
         }
 
         // Create a raycast in the direction of the agent's movement
-      
+
 
         RaycastHit hit;
         float maxDistance = 4.0f;
@@ -49,60 +52,44 @@ public class MoveTraffic : MonoBehaviour
                 stop = false;
             }
         }
-    
-           
-     
 
-
-        if(agent.remainingDistance > 1.5)
+        if (agent.remainingDistance > 1.5)
         {
             agent.SetDestination(Points[index].position);
-            
-
         }
         else
         {
-
             index++;
-            index %= maxSize;    
+            index %= maxSize;
             agent.SetDestination(Points[index].position);
-           
         }
 
-
-        if(redLight || stop)
+        if (redLight || stop)
         {
             agent.speed = 0;
-        }   
+        }
         else
         {
             agent.speed = 3.5f;
         }
-
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.gameObject.CompareTag("box"))
         {
             agent.speed = 0;
             redLight = true;
         }
         print(agent.speed);
-
     }
-    private void OnTriggerExit(Collider other) {
+
+    private void OnTriggerExit(Collider other)
+    {
         if (other.gameObject.CompareTag("box"))
         {
             agent.speed = 3.5f;
             redLight = false;
         }
     }
-
-
-
-
-
-
- 
-
 }

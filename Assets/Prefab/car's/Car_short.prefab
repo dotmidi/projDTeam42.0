@@ -219,6 +219,6 @@ MonoBehaviour:
   - {fileID: 6008775107069942608}
   index: 0
   maxSize: 0
-  canbedelete: 0
+  canbedelete: 1
   stop: 0
   redLight: 0

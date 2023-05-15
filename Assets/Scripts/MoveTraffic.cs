@@ -34,7 +34,7 @@ public class MoveTraffic : MonoBehaviour
       
 
         RaycastHit hit;
-        float maxDistance = 3.0f;
+        float maxDistance = 4.0f;
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
             // If the hit object has a speed of 0, stop the agent

@@ -79,11 +79,6 @@ public class MoveTraffic : MonoBehaviour
             agent.speed = 3.5f;
         }
 
-    
-     
-            
-
-   
     }
 
     private void OnTriggerEnter(Collider other) {

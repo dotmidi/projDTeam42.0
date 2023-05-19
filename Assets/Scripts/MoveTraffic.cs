@@ -37,12 +37,17 @@ public class MoveTraffic : MonoBehaviour
 
 
         RaycastHit hit;
-        float maxDistance = 4.0f;
+        float maxDistance = 6.0f;
+        
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
+            
             // If the hit object has a speed of 0, stop the agent
             var hitObject = hit.collider.gameObject;
-            var navMeshAgent = hitObject.GetComponent<NavMeshAgent>();
+     
+           
+            var navMeshAgent = hitObject.GetComponent<NavMeshAgent>();           
+           
             if (navMeshAgent != null && navMeshAgent.speed == 0)
             {
                 stop = true;
@@ -52,6 +57,7 @@ public class MoveTraffic : MonoBehaviour
                 stop = false;
             }
         }
+
 
         if (agent.remainingDistance > 1.5)
         {
@@ -74,22 +80,44 @@ public class MoveTraffic : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.gameObject.CompareTag("box"))
+    //     {
+    //         agent.speed = 0;
+    //         redLight = true;
+    //     }
+        
+    // }
+
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (other.gameObject.CompareTag("box"))
+    //     {
+    //         agent.speed = 3.5f;
+    //         redLight = false;
+    //     }
+    // }
+
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("box"))
         {
-            agent.speed = 0;
-            redLight = true;
+            StopCar stopCarScript = other.gameObject.GetComponentInParent<StopCar>();
+
+            if (stopCarScript != null && stopCarScript.index != 2)
+            {
+              
+                redLight = false;
+            }
+            else
+            {
+                
+                redLight = true;
+            }
         }
-        print(agent.speed);
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("box"))
-        {
-            agent.speed = 3.5f;
-            redLight = false;
-        }
-    }
+
+
 }

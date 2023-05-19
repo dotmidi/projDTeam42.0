@@ -25,8 +25,8 @@ public class StopCar : MonoBehaviour
     void Update()
     {
         index = stoplichtController.indexpublic;
-        if(index == 2)Box.isTrigger = true; 
-        else  Box.isTrigger = false;    
+        // if(index == 2)Box.isTrigger = true; 
+        // else  Box.isTrigger = false;    
 
 
     }

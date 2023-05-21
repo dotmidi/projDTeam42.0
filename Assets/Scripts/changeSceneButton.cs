@@ -10,6 +10,15 @@ public class changeSceneButton : MonoBehaviour
 
     public void changeScene()
     {
-        SceneManager.LoadScene(gameChangeScene);
+        // if current scene isnt 1, load scene 1, if it is, load scene 0
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            SceneManager.LoadScene(gameChangeScene);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
+
     }
 }

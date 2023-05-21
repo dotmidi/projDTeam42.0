@@ -17,6 +17,8 @@ public class MoveTraffic : MonoBehaviour
     public bool stop = false;
     public bool redLight = false;
 
+    public GameObject parent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,7 @@ public class MoveTraffic : MonoBehaviour
     {
         if (canbedelete && index == maxSize - 1 && agent.remainingDistance <= 1.5)
         {
-            Destroy(gameObject);
+            Destroy(parent);
             return;
         }
 

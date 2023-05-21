@@ -623,6 +623,7 @@ MonoBehaviour:
   canbedelete: 1
   stop: 0
   redLight: 0
+  parent: {fileID: 3289650098485151190}
 --- !u!64 &5231408628217047891
 MeshCollider:
   m_ObjectHideFlags: 0

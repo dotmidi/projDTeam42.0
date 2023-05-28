@@ -16,6 +16,8 @@ public class MoveTraffic : MonoBehaviour
     public bool canbedelete = false; //only for testing
     public bool stop = false;
     public bool redLight = false;
+    public float timeSinceLastCar = 0f;
+    public const float noCarTimeThreshold = 3f;
 
     public GameObject parent;
 
@@ -39,7 +41,7 @@ public class MoveTraffic : MonoBehaviour
 
 
         RaycastHit hit;
-        float maxDistance = 6.0f;
+        float maxDistance = 10.0f;
         
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
@@ -47,17 +49,37 @@ public class MoveTraffic : MonoBehaviour
             // If the hit object has a speed of 0, stop the agent
             var hitObject = hit.collider.gameObject;
      
-           
-            var navMeshAgent = hitObject.GetComponent<NavMeshAgent>();           
-           
-            if (navMeshAgent != null && navMeshAgent.speed == 0)
+            if(hitObject.CompareTag("car") && hitObject != gameObject)
             {
-                stop = true;
+               
+                var navMeshAgent = hitObject.GetComponent<NavMeshAgent>();   
+                var stopComponent = hitObject.GetComponent<MoveTraffic>();       
+            
+                if (navMeshAgent != null && (navMeshAgent.speed == 0f || stopComponent.stop || stopComponent.redLight))
+                {
+                    stop = true;
+                    timeSinceLastCar = 0f;
+                    
+                }
+                else 
+                {
+                    stop = false;               
+                }
+
             }
-            else
-            {
-                stop = false;
-            }
+  
+
+        }
+        
+        if(stop)
+        {
+            timeSinceLastCar += Time.deltaTime;
+            
+        }
+        
+        if(timeSinceLastCar >= noCarTimeThreshold)
+        {
+            stop = false;            
         }
 
 
@@ -75,31 +97,25 @@ public class MoveTraffic : MonoBehaviour
         if (redLight || stop)
         {
             agent.speed = 0;
+            agent.isStopped = true;
         }
         else
         {
             agent.speed = 3.5f;
+            agent.isStopped = false;
         }
     }
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.gameObject.CompareTag("box"))
-    //     {
-    //         agent.speed = 0;
-    //         redLight = true;
-    //     }
-        
-    // }
 
-    // private void OnTriggerExit(Collider other)
-    // {
-    //     if (other.gameObject.CompareTag("box"))
-    //     {
-    //         agent.speed = 3.5f;
-    //         redLight = false;
-    //     }
-    // }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("box"))
+        {
+           
+            redLight = false;
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {

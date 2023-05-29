@@ -91,9 +91,20 @@ public class FreeFlyCamera : MonoBehaviour
     }
 #endif
 
-
+    private GameObject prometheusObject;
+    
     private void Start()
     {
+        // Find the Prometheus object in the hierarchy
+        prometheusObject = GameObject.Find("Prometheus");
+
+        // Check if the Prometheus object exists
+        if (prometheusObject == null)
+        {
+            Debug.LogError("Prometheus object not found in the scene hierarchy!");
+            return;
+        }
+
         transform.position = new Vector3(4.19f, 7f, -13.06f);
         _initPosition = transform.position;
         _initRotation = transform.eulerAngles;
@@ -213,6 +224,13 @@ public class FreeFlyCamera : MonoBehaviour
         {
             transform.position = _initPosition;
             transform.eulerAngles = _initRotation;
+        }
+
+        // Check if the F key is pressed
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // Set the camera position above the Prometheus object
+            transform.position = prometheusObject.transform.position + new Vector3(0f, 10f, 0f);
         }
     }
 }

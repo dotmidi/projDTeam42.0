@@ -79,7 +79,8 @@ public class MoveTraffic : MonoBehaviour
         
         if(timeSinceLastCar >= noCarTimeThreshold)
         {
-            stop = false;            
+            stop = false;   
+            timeSinceLastCar = 0f;         
         }
 
 

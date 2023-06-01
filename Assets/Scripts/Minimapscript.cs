@@ -9,9 +9,9 @@ public class Minimapscript : MonoBehaviour
 
    void LateUpdate()
    {
-    Vector3 newposition = player.position;
-    newposition.y = transform.position.y;
-    transform.position = newposition;   
+        Vector3 newposition = player.position;
+        newposition.y = transform.position.y;
+        transform.position = newposition;   
 
    }
 }

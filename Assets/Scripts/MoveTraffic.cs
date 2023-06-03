@@ -18,14 +18,36 @@ public class MoveTraffic : MonoBehaviour
     public bool redLight = false;
     public float timeSinceLastCar = 0f;
     public const float noCarTimeThreshold = 3f;
+    public MeshRenderer meshRenderer;
+    
 
     public GameObject parent;
+
+    public GameObject[] Cars;
 
     // Start is called before the first frame update
     void Start()
     {
         maxSize = Points.Length;
         agent.SetDestination(Points[index].position);
+        int randomindexCar = Random.Range(0, Cars.Length);
+
+        for(int i = 0; i < Cars.Length; i++)    
+        {
+            Cars[i].SetActive(false);
+        }
+        Cars[randomindexCar].SetActive(true);
+
+    
+
+        MeshFilter meshFilter = Cars[randomindexCar].GetComponent<MeshFilter>();
+        MeshCollider meshCollider = GetComponent<MeshCollider>();
+        meshCollider.sharedMesh = meshFilter.sharedMesh;
+
+
+
+
+
     }
 
     // Update is called once per frame
@@ -51,7 +73,7 @@ public class MoveTraffic : MonoBehaviour
      
             if(hitObject.CompareTag("car") && hitObject != gameObject)
             {
-               
+                print("hit car");
                 var navMeshAgent = hitObject.GetComponent<NavMeshAgent>();   
                 var stopComponent = hitObject.GetComponent<MoveTraffic>();       
             

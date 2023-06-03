@@ -19,6 +19,6 @@ public class spawner_Car : MonoBehaviour
     public void Spawn_car()
     {
         int randomCar = Random.Range(0, Car_Type.Length);
-        Instantiate(Car_Type[randomCar], new Vector3(this.transform.position.x,Car_Type[randomCar].transform.position.y,this.transform.position.z), transform.rotation);
+        Instantiate(Car_Type[randomCar], new Vector3(this.transform.position.x,this.transform.position.y,this.transform.position.z), transform.rotation);
     }
 }

@@ -232,5 +232,27 @@ public class FreeFlyCamera : MonoBehaviour
             // Set the camera position above the Prometheus object
             transform.position = prometheusObject.transform.position + new Vector3(0f, 10f, 0f);
         }
+
+        // Check if the R key is pressed
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            MoveCameraAbovePrometheus();
+        }
+    }
+
+    private void MoveCameraAbovePrometheus()
+    {
+        // Check if the Prometheus object is valid
+        if (prometheusObject != null)
+        {
+            // Get the position of the Prometheus object
+            Vector3 prometheusPosition = prometheusObject.transform.position;
+
+            // Calculate the offset to position the camera above Prometheus
+            float cameraOffset = 10f;
+
+            // Set the camera position above the Prometheus object
+            transform.position = new Vector3(prometheusPosition.x, prometheusPosition.y + cameraOffset, prometheusPosition.z);
+        }
     }
 }

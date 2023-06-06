@@ -7,6 +7,7 @@ public class showMenu : MonoBehaviour
     // find menu object with the name pauseMenu
     public GameObject menu;
     public GameObject howToPlayMenu;
+    public GameObject miniMap;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class showMenu : MonoBehaviour
             {
                 menu.SetActive(true);
                 howToPlayMenu.SetActive(false);
+                miniMap.SetActive(false);
                 // enable the cursor
                 Cursor.lockState = CursorLockMode.None;
             }
@@ -30,6 +32,7 @@ public class showMenu : MonoBehaviour
             {
                 menu.SetActive(false);
                 howToPlayMenu.SetActive(false);
+                miniMap.SetActive(true);
                 // disable the cursor
                 Cursor.lockState = CursorLockMode.Locked;
             }

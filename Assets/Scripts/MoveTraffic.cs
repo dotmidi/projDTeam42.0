@@ -18,7 +18,9 @@ public class MoveTraffic : MonoBehaviour
     public bool redLight = false;
     public float timeSinceLastCar = 0f;
     public const float noCarTimeThreshold = 3f;
-    public MeshRenderer meshRenderer;
+    public float timeSinceTrafficLight = 0f;
+    public const float norTafficLightTimeThreshold = 3f;
+
     
 
     public GameObject parent;
@@ -96,12 +98,21 @@ public class MoveTraffic : MonoBehaviour
         {
             timeSinceLastCar += Time.deltaTime;
             
-        }
+        }        
+    
         
         if(timeSinceLastCar >= noCarTimeThreshold)
         {
             stop = false;   
             timeSinceLastCar = 0f;         
+        }
+        if(redLight)
+        {
+            timeSinceTrafficLight += Time.deltaTime;
+        }
+        if(timeSinceTrafficLight >= norTafficLightTimeThreshold)
+        {
+            CheckForTrafficLight();            
         }
 
 
@@ -116,6 +127,8 @@ public class MoveTraffic : MonoBehaviour
             agent.SetDestination(Points[index].position);
         }
 
+
+
         if (redLight || stop)
         {
             agent.speed = 0;
@@ -128,14 +141,32 @@ public class MoveTraffic : MonoBehaviour
         }
     }
 
+    void CheckForTrafficLight()
+    {
+        RaycastHit hit;
+        float maxDistance = 10.0f;
+        timeSinceTrafficLight = 0f;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
+        {
+            if (hit.collider.gameObject.CompareTag("traffic_light"))
+            {
+               
+                return; // A traffic light with the "traffic_light" tag was found in front of the car
+            }
+        }
+    
+    redLight = false;
+    return; // No traffic light found in front of the car
+    }
+
 
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("box"))
-        {
-           
+        {           
             redLight = false;
+            timeSinceTrafficLight = 0f;
         }
         if(other.gameObject.CompareTag("Radius"))
         {
@@ -161,6 +192,7 @@ public class MoveTraffic : MonoBehaviour
                 redLight = true;
             }
         }
+
     }
 
     

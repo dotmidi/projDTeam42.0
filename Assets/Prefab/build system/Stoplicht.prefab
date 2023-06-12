@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 7657021301074838582}
   m_Layer: 0
   m_Name: Stoplicht
-  m_TagString: Untagged
+  m_TagString: traffic_light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

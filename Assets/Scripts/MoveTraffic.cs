@@ -80,8 +80,7 @@ public class MoveTraffic : MonoBehaviour
                 if (navMeshAgent != null && (navMeshAgent.speed == 0f || stopComponent.stop || stopComponent.redLight))
                 {
                     stop = true;
-                    timeSinceLastCar = 0f;
-                    
+                    timeSinceLastCar = 0f;                    
                 }
                 else 
                 {
@@ -138,6 +137,11 @@ public class MoveTraffic : MonoBehaviour
            
             redLight = false;
         }
+        if(other.gameObject.CompareTag("Radius"))
+        {
+            Destroy(parent);
+            return;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -158,6 +162,8 @@ public class MoveTraffic : MonoBehaviour
             }
         }
     }
+
+    
 
 
 

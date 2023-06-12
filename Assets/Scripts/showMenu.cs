@@ -8,11 +8,7 @@ public class showMenu : MonoBehaviour
     public GameObject menu;
     public GameObject howToPlayMenu;
     public GameObject miniMap;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject creditsMenu;
 
     // Update is called once per frame
     void Update()
@@ -24,6 +20,7 @@ public class showMenu : MonoBehaviour
             {
                 menu.SetActive(true);
                 howToPlayMenu.SetActive(false);
+                creditsMenu.SetActive(false);
                 miniMap.SetActive(false);
                 // enable the cursor
                 Cursor.lockState = CursorLockMode.None;
@@ -32,6 +29,7 @@ public class showMenu : MonoBehaviour
             {
                 menu.SetActive(false);
                 howToPlayMenu.SetActive(false);
+                creditsMenu.SetActive(false);
                 miniMap.SetActive(true);
                 // disable the cursor
                 Cursor.lockState = CursorLockMode.Locked;

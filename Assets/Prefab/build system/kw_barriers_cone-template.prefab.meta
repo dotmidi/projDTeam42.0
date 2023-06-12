@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 0520436a2a86af34796c1a90f36c7667
+labels:
+- Prop
+- Road
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: kw_barriers
+  assetBundleVariant: cone

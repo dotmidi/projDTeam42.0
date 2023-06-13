@@ -9,6 +9,7 @@ TagManager:
   - Spawner
   - car
   - Radius
+  - traffic_light
   layers:
   - Default
   - TransparentFX

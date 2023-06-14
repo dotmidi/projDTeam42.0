@@ -20,6 +20,9 @@ public class MoveTraffic : MonoBehaviour
     public const float noCarTimeThreshold = 3f;
     public float timeSinceTrafficLight = 0f;
     public const float norTafficLightTimeThreshold = 3f;
+    public float distanceToCarInFront = 0f;
+    public float desiredDistance = 4f;
+    public bool tooclose = false;
 
     
 
@@ -44,6 +47,7 @@ public class MoveTraffic : MonoBehaviour
 
         MeshFilter meshFilter = Cars[randomindexCar].GetComponent<MeshFilter>();
         MeshCollider meshCollider = GetComponent<MeshCollider>();
+
         meshCollider.sharedMesh = meshFilter.sharedMesh;
 
 
@@ -55,26 +59,29 @@ public class MoveTraffic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (canbedelete && index == maxSize - 1 && agent.remainingDistance <= 1.5)
         {
             Destroy(parent);
             return;
+            
         }
-
         // Create a raycast in the direction of the agent's movement
 
 
         RaycastHit hit;
-        float maxDistance = 10.0f;
+        float maxDistance = 15.0f;
         
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
         {
+
             
             // If the hit object has a speed of 0, stop the agent
             var hitObject = hit.collider.gameObject;
      
             if(hitObject.CompareTag("car") && hitObject != gameObject)
             {
+                distanceToCarInFront = Vector3.Distance(transform.position, hitObject.transform.position);
                 print("hit car");
                 var navMeshAgent = hitObject.GetComponent<NavMeshAgent>();   
                 var stopComponent = hitObject.GetComponent<MoveTraffic>();       
@@ -86,15 +93,29 @@ public class MoveTraffic : MonoBehaviour
                 }
                 else 
                 {
-                    stop = false;               
+                    
+                    if (distanceToCarInFront < desiredDistance)
+                    
+                    {
+                            tooclose = true;
+                    }
+                    else
+                    {
+                        tooclose = false;
+                        
+                        stop = false; 
+                    }
+                    
+                                  
                 }
 
             }
+        
   
 
         }
         
-        if(stop)
+        if(stop || tooclose)
         {
             timeSinceLastCar += Time.deltaTime;
             
@@ -103,7 +124,9 @@ public class MoveTraffic : MonoBehaviour
         
         if(timeSinceLastCar >= noCarTimeThreshold)
         {
-            stop = false;   
+            stop = false; 
+            distanceToCarInFront = -1;  
+            tooclose = false;
             timeSinceLastCar = 0f;         
         }
         if(redLight)
@@ -119,9 +142,11 @@ public class MoveTraffic : MonoBehaviour
         if (agent.remainingDistance > 1.5)
         {
             agent.SetDestination(Points[index].position);
+
         }
         else
         {
+
             index++;
             index %= maxSize;
             agent.SetDestination(Points[index].position);
@@ -133,6 +158,15 @@ public class MoveTraffic : MonoBehaviour
         {
             agent.speed = 0;
             agent.isStopped = true;
+        }
+        else if(tooclose)
+        {
+            float ratio = distanceToCarInFront / desiredDistance;
+            float minSpeed = 1.5f; // Set the minimum speed (1.0 units per second)
+            float maxSpeed = 3.5f; // Set the maximum speed (3.5 units per second)
+
+            // Interpolate between the minimum and maximum speed based on the ratio
+            agent.speed = Mathf.Lerp(minSpeed, maxSpeed, 1 - ratio);
         }
         else
         {
@@ -194,6 +228,10 @@ public class MoveTraffic : MonoBehaviour
         }
 
     }
+
+
+
+
 
     
 

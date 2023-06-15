@@ -20,8 +20,8 @@ public class MoveTraffic : MonoBehaviour
     public const float noCarTimeThreshold = 3f;
     public float timeSinceTrafficLight = 0f;
     public const float norTafficLightTimeThreshold = 3f;
-    public float distanceToCarInFront = 0f;
-    public float desiredDistance = 4f;
+    public float distanceToCarInFront = -1f;
+    public float desiredDistance = 9f;
     public bool tooclose = false;
 
     
@@ -33,6 +33,8 @@ public class MoveTraffic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        desiredDistance = 9f;
+        distanceToCarInFront = -1f;
         maxSize = Points.Length;
         agent.SetDestination(Points[index].position);
         int randomindexCar = Random.Range(0, Cars.Length);
@@ -94,8 +96,7 @@ public class MoveTraffic : MonoBehaviour
                 else 
                 {
                     
-                    if (distanceToCarInFront < desiredDistance)
-                    
+                    if (distanceToCarInFront < desiredDistance)                    
                     {
                             tooclose = true;
                     }
@@ -125,7 +126,7 @@ public class MoveTraffic : MonoBehaviour
         if(timeSinceLastCar >= noCarTimeThreshold)
         {
             stop = false; 
-            distanceToCarInFront = -1;  
+            distanceToCarInFront = -1f;  
             tooclose = false;
             timeSinceLastCar = 0f;         
         }

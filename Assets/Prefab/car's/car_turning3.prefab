@@ -2324,7 +2324,10 @@ MonoBehaviour:
   stop: 0
   redLight: 0
   timeSinceLastCar: 0
-  meshRenderer: {fileID: 0}
+  timeSinceTrafficLight: 0
+  distanceToCarInFront: 0
+  desiredDistance: 4
+  tooclose: 0
   parent: {fileID: 3346256098809939668}
   Cars:
   - {fileID: 508955211172690299}

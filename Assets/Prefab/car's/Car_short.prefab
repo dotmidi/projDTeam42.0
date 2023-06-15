@@ -222,4 +222,10 @@ MonoBehaviour:
   canbedelete: 1
   stop: 0
   redLight: 0
+  timeSinceLastCar: 0
+  timeSinceTrafficLight: 0
+  distanceToCarInFront: 0
+  desiredDistance: 10.5
+  tooclose: 0
   parent: {fileID: 4988670128071070843}
+  Cars: []

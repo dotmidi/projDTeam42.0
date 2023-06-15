@@ -44,7 +44,18 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update()
     {
-        
+        if(!carCamSwitch.freeFlyCam)
+        {
+            buildModeOn = false;
+            DeleteObject.DestroyMode = false;
+            KeuzeScherm.SetActive(false);
+
+        }
+        if(DeleteObject.DestroyMode)
+        {
+            buildModeOn = false;
+            KeuzeScherm.SetActive(false);
+        }
         
         if (Input.GetKeyDown("g"))
         {
@@ -56,20 +67,14 @@ public class BuildingSystem : MonoBehaviour
             if (buildModeOn)
             {
                 Cursor.lockState = CursorLockMode.Locked;
+                 KeuzeScherm.SetActive(true);
             }
             else
             {
                 Cursor.lockState = CursorLockMode.None;
-            }
-            if(buildModeOn)
-            {
-                KeuzeScherm.SetActive(true);
-              
-            }
-            else
-            {
                 KeuzeScherm.SetActive(false);
             }
+
         }
 
         

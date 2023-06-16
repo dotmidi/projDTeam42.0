@@ -12,55 +12,78 @@ public class StoplichtController : MonoBehaviour
     public int indexpublic = 0;
     private int max;
 
+
     
 
     // Start is called before the first frame update
     void Start()
     {
-        max = Lichten.Length;
-        Lichten[0].SetActive(true);
-        wait = true;
-        
         
     }
 
     // Update is called once per frame
     void Update()
     {   
-           indexpublic = index;
-           if(wait == true)
-            {
-                if(index == 1)
-                {
-                    StartCoroutine(waiter(2));
-                }
-                else
-                {
-                    StartCoroutine(waiter(5));
-                }
-            }
+        //    indexpublic = index;
+        //    if(wait == true)
+        //     {
+        //         if(index == 1)
+        //         {
+        //             StartCoroutine(waiter(2));
+        //         }
+        //         else
+        //         {
+        //             StartCoroutine(waiter(5));
+        //         }
+        //     }
             
     }
 
-   private IEnumerator waiter(int Time)
-    {
-        //Wait for 5 seconds
-        wait = false;
-        yield return new WaitForSeconds(Time);
 
-                index++;
-                index = index % max;
-                Lichten[index % max].SetActive(true);
-                if(index == 0)
-                {
-                    Lichten[2].SetActive(false);
-                }
-                else
-                {
-                    Lichten[(index - 1) % max].SetActive(false);
-                }
-        wait = true;
-    }      
+    public void Rood()
+    {
+        Lichten[2].SetActive(true);
+        Lichten[0].SetActive(false);
+        Lichten[1].SetActive(false);
+        indexpublic = 2;
+    }
+
+    public void Oranje()
+    {
+        Lichten[2].SetActive(false);
+        Lichten[0].SetActive(false);
+        Lichten[1].SetActive(true);
+        indexpublic = 1;
+    }
+
+    public void Groen()
+    {
+        Lichten[2].SetActive(false);
+        Lichten[0].SetActive(true);
+        Lichten[1].SetActive(false);
+        indexpublic = 0;
+        print("groen");
+    }
+    
+//    private IEnumerator waiter(int Time)
+//     {
+//         //Wait for 5 seconds
+//         wait = false;
+//         yield return new WaitForSeconds(Time);
+
+//                 index++;
+//                 index = index % max;
+//                 Lichten[index % max].SetActive(true);
+//                 if(index == 0)
+//                 {
+//                     Lichten[2].SetActive(false);
+//                 }
+//                 else
+//                 {
+//                     Lichten[(index - 1) % max].SetActive(false);
+//                 }
+//         wait = true;
+//     }      
      
 
 }

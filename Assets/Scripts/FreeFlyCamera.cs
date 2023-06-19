@@ -7,98 +7,52 @@ public class FreeFlyCamera : MonoBehaviour
 
     [Space]
 
-    [SerializeField]
-    [Tooltip("The script is currently active")]
-    private bool _active = true;
+    public bool isActive = true;
 
     [Space]
 
-    [SerializeField]
-    [Tooltip("Camera rotation by mouse movement is active")]
-    private bool _enableRotation = true;
-
-    [SerializeField]
-    [Tooltip("Sensitivity of mouse rotation")]
-    private float _mouseSense = 1.8f;
+    public bool enableRotation = true;
+    public float mouseSensitivity = 1.8f;
 
     [Space]
 
-    [SerializeField]
-    [Tooltip("Camera zooming in/out by 'Mouse Scroll Wheel' is active")]
-    private bool _enableTranslation = true;
-
-    [SerializeField]
-    [Tooltip("Velocity of camera zooming in/out")]
-    private float _translationSpeed = 55f;
+    public bool enableTranslation = true;
+    public float translationSpeed = 55f;
 
     [Space]
 
-    [SerializeField]
-    [Tooltip("Camera movement by 'W','A','S','D','Q','E' keys is active")]
-    private bool _enableMovement = true;
-
-    [SerializeField]
-    [Tooltip("Camera movement speed")]
-    private float _movementSpeed = 10f;
-
-    [SerializeField]
-    [Tooltip("Speed of the quick camera movement when holding the 'Left Shift' key")]
-    private float _boostedSpeed = 50f;
-
-    [SerializeField]
-    [Tooltip("Boost speed")]
-    private KeyCode _boostSpeed = KeyCode.LeftShift;
-
-    [SerializeField]
-    [Tooltip("Move up")]
-    private KeyCode _moveUp = KeyCode.E;
-
-    [SerializeField]
-    [Tooltip("Move down")]
-    private KeyCode _moveDown = KeyCode.Q;
+    public bool enableMovement = true;
+    public float movementSpeed = 10f;
+    public float boostedSpeed = 50f;
+    public KeyCode boostSpeed = KeyCode.LeftShift;
+    public KeyCode moveUp = KeyCode.E;
+    public KeyCode moveDown = KeyCode.Q;
 
     [Space]
 
-    [SerializeField]
-    [Tooltip("Acceleration at camera movement is active")]
-    private bool _enableSpeedAcceleration = true;
-
-    [SerializeField]
-    [Tooltip("Rate which is applied during camera movement")]
-    private float _speedAccelerationFactor = 1.5f;
+    public bool enableSpeedAcceleration = true;
+    public float speedAccelerationFactor = 1.5f;
 
     [Space]
 
-    [SerializeField]
-    [Tooltip("This keypress will move the camera to initialization position")]
-    private KeyCode _initPositonButton = KeyCode.R;
+    public KeyCode initPositionButton = KeyCode.R;
 
     #endregion UI
 
-    private CursorLockMode _wantedMode;
+    private CursorLockMode wantedMode;
 
-    private float _currentIncrease = 1;
-    private float _currentIncreaseMem = 0;
+    private float currentIncrease = 1;
+    private float currentIncreaseMem = 0;
 
-    private Vector3 _initPosition;
-    private Vector3 _initRotation;
-
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        if (_boostedSpeed < _movementSpeed)
-            _boostedSpeed = _movementSpeed;
-    }
-#endif
+    private Vector3 initPosition;
+    private Vector3 initRotation;
 
     private GameObject prometheusObject;
-    
+
     private void Start()
     {
-        // Find the Prometheus object in the hierarchy
         prometheusObject = GameObject.Find("Prometheus");
 
-        // Check if the Prometheus object exists
         if (prometheusObject == null)
         {
             Debug.LogError("Prometheus object not found in the scene hierarchy!");
@@ -106,56 +60,54 @@ public class FreeFlyCamera : MonoBehaviour
         }
 
         transform.position = new Vector3(4.19f, 7f, -13.06f);
-        _initPosition = transform.position;
-        _initRotation = transform.eulerAngles;
+        initPosition = transform.position;
+        initRotation = transform.eulerAngles;
     }
 
     private void OnEnable()
     {
-        if (_active)
-            _wantedMode = CursorLockMode.Locked;
+        if (isActive)
+            wantedMode = CursorLockMode.Locked;
     }
 
-    // Apply requested cursor state
     private void SetCursorState()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.lockState = _wantedMode = CursorLockMode.None;
+            Cursor.lockState = wantedMode = CursorLockMode.None;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            _wantedMode = CursorLockMode.Locked;
+            wantedMode = CursorLockMode.Locked;
         }
 
-        // Apply cursor state
-        Cursor.lockState = _wantedMode;
-        // Hide cursor when locking
-        Cursor.visible = (CursorLockMode.Locked != _wantedMode);
+        Cursor.lockState = wantedMode;
+        Cursor.visible = (CursorLockMode.Locked != wantedMode);
     }
 
     private void CalculateCurrentIncrease(bool moving)
     {
-        _currentIncrease = Time.deltaTime;
+        currentIncrease = Time.deltaTime;
 
-        if (!_enableSpeedAcceleration || _enableSpeedAcceleration && !moving)
+        if (!enableSpeedAcceleration || enableSpeedAcceleration && !moving)
         {
-            _currentIncreaseMem = 0;
+            currentIncreaseMem = 0;
             return;
         }
 
-        _currentIncreaseMem += Time.deltaTime * (_speedAccelerationFactor - 1);
-        _currentIncrease = Time.deltaTime + Mathf.Pow(_currentIncreaseMem, 3) * Time.deltaTime;
+        currentIncreaseMem += Time.deltaTime * (speedAccelerationFactor - 1);
+        currentIncrease = Time.deltaTime + Mathf.Pow(currentIncreaseMem, 3) * Time.deltaTime;
     }
 
     private void Update()
     {
-        if (carCamSwitch.carCam == true) {
+        if (carCamSwitch.carCam == true)
+        {
             return;
         }
 
-        if (!_active)
+        if (!isActive)
             return;
 
         SetCursorState();
@@ -163,20 +115,13 @@ public class FreeFlyCamera : MonoBehaviour
         if (Cursor.visible)
             return;
 
-        // Translation
-        // if (_enableTranslation)
-        // {
-        //     transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * Time.deltaTime * _translationSpeed);
-        // }
-
-        // Movement
-        if (_enableMovement)
+        if (enableMovement)
         {
             Vector3 deltaPosition = Vector3.zero;
-            float currentSpeed = _movementSpeed;
+            float currentSpeed = movementSpeed;
 
-            if (Input.GetKey(_boostSpeed))
-                currentSpeed = _boostedSpeed;
+            if (Input.GetKey(boostSpeed))
+                currentSpeed = boostedSpeed;
 
             if (Input.GetKey(KeyCode.W))
                 deltaPosition += transform.forward;
@@ -190,50 +135,42 @@ public class FreeFlyCamera : MonoBehaviour
             if (Input.GetKey(KeyCode.D))
                 deltaPosition += transform.right;
 
-            if (Input.GetKey(_moveUp))
+            if (Input.GetKey(moveUp))
                 deltaPosition += transform.up;
 
-            if (Input.GetKey(_moveDown))
+            if (Input.GetKey(moveDown))
                 deltaPosition -= transform.up;
 
-            // Calc acceleration
             CalculateCurrentIncrease(deltaPosition != Vector3.zero);
 
-            transform.position += deltaPosition * currentSpeed * _currentIncrease;
+            transform.position += deltaPosition * currentSpeed * currentIncrease;
         }
 
-        // Rotation
-        if (_enableRotation)
+        if (enableRotation)
         {
-            // Pitch
             transform.rotation *= Quaternion.AngleAxis(
-                -Input.GetAxis("Mouse Y") * _mouseSense,
+                -Input.GetAxis("Mouse Y") * mouseSensitivity,
                 Vector3.right
             );
 
-            // Paw
             transform.rotation = Quaternion.Euler(
                 transform.eulerAngles.x,
-                transform.eulerAngles.y + Input.GetAxis("Mouse X") * _mouseSense,
+                transform.eulerAngles.y + Input.GetAxis("Mouse X") * mouseSensitivity,
                 transform.eulerAngles.z
             );
         }
 
-        // Return to init position
-        if (Input.GetKeyDown(_initPositonButton))
+        if (Input.GetKeyDown(initPositionButton))
         {
-            transform.position = _initPosition;
-            transform.eulerAngles = _initRotation;
+            transform.position = initPosition;
+            transform.eulerAngles = initRotation;
         }
 
-        // Check if the F key is pressed
         if (Input.GetKeyDown(KeyCode.F))
         {
-            // Set the camera position above the Prometheus object
-            transform.position = prometheusObject.transform.position + new Vector3(0f, 10f, 0f);
+            MoveCameraAbovePrometheus();
         }
 
-        // Check if the R key is pressed
         if (Input.GetKeyDown(KeyCode.R))
         {
             MoveCameraAbovePrometheus();
@@ -242,16 +179,11 @@ public class FreeFlyCamera : MonoBehaviour
 
     private void MoveCameraAbovePrometheus()
     {
-        // Check if the Prometheus object is valid
         if (prometheusObject != null)
         {
-            // Get the position of the Prometheus object
             Vector3 prometheusPosition = prometheusObject.transform.position;
-
-            // Calculate the offset to position the camera above Prometheus
             float cameraOffset = 10f;
 
-            // Set the camera position above the Prometheus object
             transform.position = new Vector3(prometheusPosition.x, prometheusPosition.y + cameraOffset, prometheusPosition.z);
         }
     }

@@ -65,10 +65,10 @@ GameObject:
   - component: {fileID: 719266241257587020}
   - component: {fileID: 685108782279340124}
   - component: {fileID: 693679651320231386}
-  - component: {fileID: 717217108773164389}
-  - component: {fileID: 1079836584}
   - component: {fileID: 99664485466010409}
   - component: {fileID: 7657021301074838582}
+  - component: {fileID: 5812600176933954953}
+  - component: {fileID: 1087744366977222871}
   m_Layer: 0
   m_Name: Stoplicht
   m_TagString: traffic_light
@@ -85,7 +85,7 @@ Transform:
   m_GameObject: {fileID: 716706153866520240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.28, y: 0.7500003, z: 4.19}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.49999994, y: 0.49999988, z: 0.49999994}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 717217109533734001}
@@ -145,39 +145,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &717217108773164389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716706153866520240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef92207ea39d7c04db3a0541f0f9c91a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lichten:
-  - {fileID: 717217109533733999}
-  - {fileID: 717217109443737151}
-  - {fileID: 717217108997011412}
-  index: 0
-  indexpublic: 0
---- !u!114 &1079836584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716706153866520240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f97bc51a10637404b8ed27fe27b44198, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 2
-  stoplichtController: {fileID: 717217108773164389}
-  Box: {fileID: 889036669}
 --- !u!64 &99664485466010409
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -199,7 +166,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716706153866520240}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.39, y: 3.7240002, z: 0.405}
@@ -208,6 +175,39 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.1, y: 3.7240002, z: -0.03}
   m_TimeToStationary: 0.5
+--- !u!114 &5812600176933954953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716706153866520240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef92207ea39d7c04db3a0541f0f9c91a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Lichten:
+  - {fileID: 717217109533733999}
+  - {fileID: 717217109443737151}
+  - {fileID: 717217108997011412}
+  index: 0
+  indexpublic: 0
+--- !u!114 &1087744366977222871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716706153866520240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f97bc51a10637404b8ed27fe27b44198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  stoplichtController: {fileID: 5812600176933954953}
+  Box: {fileID: 889036669}
 --- !u!1 &717217108997011412
 GameObject:
   m_ObjectHideFlags: 0

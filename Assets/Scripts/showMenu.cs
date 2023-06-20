@@ -23,6 +23,7 @@ public class showMenu : MonoBehaviour
                 creditsMenu.SetActive(false);
                 miniMap.SetActive(false);
                 // enable the cursor
+                Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
             else
@@ -32,6 +33,7 @@ public class showMenu : MonoBehaviour
                 creditsMenu.SetActive(false);
                 miniMap.SetActive(true);
                 // disable the cursor
+                Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
             }
         }

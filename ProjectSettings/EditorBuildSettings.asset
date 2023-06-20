@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu/MainMenu.unity
+    path: Assets/Scenes/MainGame/MainMenu.unity
     guid: 9631fecaacfeca54e9c5ced1db3231c7
   - enabled: 1
-    path: Assets/Scenes/New Area.unity
+    path: Assets/Scenes/MainGame/New Area.unity
     guid: f100cd97e6af1c54eaba531020bfefbe
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 0f1898c133e58ee4cbc5a0075f9356f4, type: 2}
